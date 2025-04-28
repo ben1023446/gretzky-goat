@@ -1,0 +1,15 @@
+# Ignore raw & large data
+data/raw/
+data/*.csv
+
+# RStudio and R artifacts
+.Rproj.user/
+.Rhistory
+.RData
+
+# MATLAB autosave
+*~
+*.asv
+
+# Docker build cache
+**/Dockerfile.*.swp

@@ -1,0 +1,20 @@
+# Use Rocker’s tidyverse image with R 4.4.3 pre-installed
+FROM rocker/tidyverse:4.4.3
+
+# Install extra R packages needed
+RUN R -e "install.packages(
+  c('lme4','readr','httr','rvest','openxlsx'),
+  repos='https://cloud.r-project.org'
+)"
+
+# Set working directory inside container
+WORKDIR /home/pipeline
+
+# Copy your R scripts into the container
+COPY R-scripts/ ./R-scripts/
+
+# (Optional) Copy cleaned data if you want it inside
+# COPY data/ ./data/
+
+# Default command: run your main R script
+CMD ["Rscript", "R-scripts/run_all_metrics.R"]
