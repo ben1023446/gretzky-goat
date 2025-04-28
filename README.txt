@@ -15,7 +15,7 @@ and the likelihood of seeing the dominance of future GOATs (April 2025).
 
 ## Repository Structure
 
-gretzky-goat/ ├── R-scripts/ # R code: scraping, cleaning, metrics │ ├── scrape_and_clean.R │ ├── compute_metrics.R │ └── run_all_metrics.R # calls other R scripts in sequence ├── MATLAB-scripts/ # MATLAB code: GEV fitting, simulation │ └── runAllEVTAndSimulations.m ├── data/ # cleaned data (no raw dumps) │ └── all_seasons_combined.csv ├── results/ # generated tables & figures ├── Dockerfile # builds R 4.4.3 + tidyverse container ├── Dockerfile.matlab # (optional) MATLAB R2024b container spec ├── .gitignore # keep unwanted files out of Git └── README.md # this file
+gretzky-goat/ ├── R-scripts/ # R code: scraping, cleaning, metrics │ ├── scrape_and_clean.R │ ├── compute_metrics.R │ └── run_all_metrics.R # calls other R scripts in sequence ├── MATLAB-scripts/ # MATLAB code: GEV fitting, simulation │ └── runAllEVTAndSimulations.m ├── data/ # cleaned data (no raw dumps) │ └── all_seasons_combined.csv ├── results/ # generated tables & figures ├── Dockerfile # builds R 4.4.3 + tidyverse container ├──  .gitignore # keep unwanted files out of Git └── README.md # this file
 
 
 ## Prerequisites
@@ -53,17 +53,23 @@ matlab -batch "runAllEVTAndSimulations"
 #That script fits GEVs, runs 20 000-run Monte Carlo, and writes final tables/plots into results/.
 
 Viewing Results
-After both pipelines complete, open the results/ folder to find:
+results/
+├── dominance_scores.csv           # Gretzky’s D_goat and runner-up comparisons by metric
+├── gev_parameters.csv             # Fitted GEV ξ, σ, μ for each metric
+├── exceedance_probabilities.csv   # P(future > D_goat) and 95% CIs for each metric
+├── return_level_curves/           
+│   ├── composite_return_level.png # Return-level curve for the Composite metric
+│   └── ...                        # Other metrics’ curves
+├── histograms/                    
+│   ├── composite_mc_histogram.png # Monte Carlo histogram for the Composite metric
+│   └── ...                        # Other metrics’ histograms
+└── ensemble_forecast.png          # Final bar chart with unweighted/weighted ensemble lines
 
-dominance_scores.csv
+.csv files give the raw numbers behind Tables 4–7 in the dissertation.
 
-gev_parameters.csv
+return_level_curves/ and histograms/ contain the PNGs used for Figures 2–3 and all Appendix plots.
 
-exceedance_probabilities.csv
-
-Return-level and histogram PNGs
-
-These match exactly the tables and figures in the dissertation.
+ensemble_forecast.png is the combined forecast bar chart (Figure 4).
 
 Citation
 If you use or build on this work, please cite:
